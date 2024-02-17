@@ -199,7 +199,7 @@ function getRandomSubarray(arr, size) {
 }
 
 // formatQuizListからランダムに10個のクイズを選択
-const randomSelection = getRandomSubarray(formatQuizList, 10);
+const randomSelection = getRandomSubarray(formatQuizList, 1);
 /*
 // 旧：選択されたクイズをページに表示
 const quizContainer = document.getElementById('quiz-container');
@@ -254,6 +254,34 @@ function updateLog(question, feedback) {
     document.getElementById('log').appendChild(logEntry);
 }
 
+// ツイート文面を生成する関数
+function generateTweetText(score) {
+    return `私のスコアは${score}点です！ #にばいめーかー`;
+}
+
+// ゲーム終了時に呼び出される関数
+function gameFinished(score) {
+    const tweetText = `#にばいめーかー 10問を${score}秒でクリアしました！\nhttps://green-plus.github.io/nibaimaker/`;
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+
+    // 既存のボタンがあれば削除
+    const existingButton = document.querySelector('#tweetButtonContainer a');
+    if (existingButton) {
+        existingButton.parentNode.removeChild(existingButton);
+    }
+
+    // 新しいツイートボタンを作成
+    const tweetButton = document.createElement('a');
+    tweetButton.setAttribute('href', tweetUrl);
+    tweetButton.setAttribute('target', '_blank');
+    tweetButton.textContent = 'ツイート';
+
+    // ボタンをページに追加
+    document.getElementById('tweetButtonContainer').appendChild(tweetButton);
+}
+
+
+
 function generateQuiz() {
     let currentQuiz = 0;
     let startTime = Date.now();
@@ -293,6 +321,7 @@ function generateQuiz() {
                 document.getElementById('quiz').textContent = "終了！経過時間: " + elapsed + "秒";
                 document.getElementById('answer').style.display = 'none';
                 document.getElementById('submit').style.display = 'none';
+                gameFinished(elapsed);
             }
         }
 
@@ -315,7 +344,5 @@ function generateQuiz() {
         }
     });
 };
-
-
 
 generateQuiz();
