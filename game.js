@@ -199,7 +199,7 @@ function getRandomSubarray(arr, size) {
 }
 
 // formatQuizListからランダムに10個のクイズを選択
-const randomSelection = getRandomSubarray(formatQuizList, 1);
+const randomSelection = getRandomSubarray(formatQuizList, 10);
 /*
 // 旧：選択されたクイズをページに表示
 const quizContainer = document.getElementById('quiz-container');
