@@ -296,6 +296,10 @@ function generateQuiz() {
         // submitボタンがクリックされたとき、またはEnterキーが押されたときに実行される処理
         let question = randomSelection[currentQuiz][0];
         let userAnswer = document.getElementById('answer').value;
+        //大文字に統一
+        userAnswer = userAnswer.replace(/[a-z]/g, function(match) {
+            return match.toUpperCase();
+        });
         let userAnswerNum = cardsToNum(userAnswer);
         // 回答の正誤判定を行う
         let answerCondition = checkAnswer(userAnswer, randomSelection[currentQuiz][1]);
