@@ -220,6 +220,7 @@ function checkAnswer(guess, quiz) {
         let nibaiDetail = cardsToDetails(cards);
         let allDetail = factorDetail.map((detail, i) => detail + nibaiDetail[i]);
         allDetail[2] += 1;
+        console.log("Comparing:", allDetail, quiz);
         if (JSON.stringify(allDetail) === JSON.stringify(quiz)) {
             equationCorrect = true;
             break;
